@@ -1,0 +1,6 @@
+import test from 'node:test';import assert from 'node:assert/strict';import {standings,validateOrder,ordinal} from '../src/scoring.js';
+const teams=['red','blue','green'].map((id,i)=>({id,sort_order:i}));
+test('placements award points and edits replace previous results',()=>{let events=[{placements:['blue','red','green']}];assert.equal(standings(teams,events)[0].total,15);events[0].placements=['red','green','blue'];assert.equal(standings(teams,events)[0].id,'red');assert.equal(standings(teams,events).find(t=>t.id==='blue').total,10);});
+test('unplayed events award no points; equal totals share rank',()=>{const rows=standings(teams,[{placements:[]}]);assert.deepEqual(rows.map(t=>t.rank),[1,1,1]);assert.equal(rows[0].played,0);const tied=standings(teams,[{placements:['red','blue','green']},{placements:['blue','red','green']}]);assert.deepEqual(tied.map(t=>t.rank),[1,1,3]);});
+test('reject missing, duplicate and unknown teams',()=>{assert.ok(validateOrder(['red','blue','green'],teams));for(let order of [['red','blue'],['red','red','green'],['red','blue','pink']])assert.equal(validateOrder(order,teams),false)});
+test('ordinal suffixes',()=>assert.deepEqual([1,2,3,4,11,12,13,21].map(ordinal),['1st','2nd','3rd','4th','11th','12th','13th','21st']));
