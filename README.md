@@ -1,4 +1,4 @@
-# Dirty Thirties · Beerlympics
+# Thirty & Thirsty · Beerlympics
 
 Public site: https://calebheinzman.github.io/beerlympics/
 
@@ -12,7 +12,7 @@ The organizer opens **Organizer**, enters their designated email, and chooses **
 
 Choose a game, drag teams or use the up/down buttons, and publish. Corrections replace that event's previous placements, so points are never doubled. Results are written atomically as one complete order. Changes from another device cannot silently overwrite newer results. Use Clear results to remove an event's points.
 
-Six initial teams are editable. Add/remove teams before scoring begins (2–12 teams recommended); names, colors, and sizes can change later. Games, rules, and equipment are editable in the score desk. Five indoor games are seeded, with draft house rules. Among Us was confirmed in the planning chat; the other four are starter options because early chat content wasn't exposed by the retrieval tool.
+Six initial teams are editable; teammate counts are intentionally not shown or tracked in the organizer interface. Add/remove teams before scoring begins (2–12 teams recommended); names and colors can change later. Games, rules, and equipment are editable in the score desk. Five indoor games are seeded, with draft house rules. Among Us was confirmed in the planning chat; the other four are starter options because early chat content wasn't exposed by the retrieval tool.
 
 ## Scoring
 
