@@ -8,7 +8,9 @@ A phone-friendly birthday event scoreboard hosted on GitHub Pages, with Supabase
 
 Guests open the site without signing in. The homepage shows overall standings and the event breakdown. Standings refresh every 10 seconds while the page is visible. Games includes the scoring guide, the current draft house rules and published event results.
 
-The organizer opens **Organizer**, enters their designated email, and chooses **Email me a sign-in link** on first use. After signing in, **Change password** at the bottom of the score desk sets a password for later use. Supabase's default email service is limited to organization members and has a low hourly rate limit; password login avoids email on party day.
+The organizer opens **Organizer** and enters their password. No email field, email confirmation, or email link is used for normal sign-in. Initial password creation uses a private, single-use recovery link supplied in the Codex chat; it opens the password form directly. This uses the existing organizer's Supabase Auth identity internally, so database permissions remain tied to the same organizer UUID. Public account creation remains disabled. If a password is forgotten, request a fresh private setup link through this chat; never publish setup tokens in GitHub or the site.
+
+The previous email-link login has been removed. Supabase still stores an email as the internal account identifier, but it is not part of the organizer's sign-in flow.
 
 Choose a game, drag teams or use the up/down buttons, and publish. Corrections replace that event's previous placements, so points are never doubled. Results are written atomically as one complete order. Changes from another device cannot silently overwrite newer results. Use Clear results to remove an event's points.
 
