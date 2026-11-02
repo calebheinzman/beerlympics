@@ -6,7 +6,7 @@ A phone-friendly birthday event scoreboard hosted on GitHub Pages, with Supabase
 
 ## Using it
 
-Guests open the site without signing in. Standings refresh every 10 seconds while the page is visible. Games includes the current draft house rules and published event results.
+Guests open the site without signing in. The homepage shows overall standings and the event breakdown. Standings refresh every 10 seconds while the page is visible. Games includes the scoring guide, the current draft house rules and published event results.
 
 The organizer opens **Organizer**, enters their designated email, and chooses **Email me a sign-in link** on first use. After signing in, **Change password** at the bottom of the score desk sets a password for later use. Supabase's default email service is limited to organization members and has a low hourly rate limit; password login avoids email on party day.
 
