@@ -14,7 +14,7 @@ The previous email-link login has been removed. Supabase still stores an email a
 
 Choose a game, drag teams or use the up/down buttons, and publish. Corrections replace that event's previous placements, so points are never doubled. Results are written atomically as one complete order. Changes from another device cannot silently overwrite newer results. Use Clear results to remove an event's points.
 
-Six initial teams are editable; teammate counts are intentionally not shown or tracked in the organizer interface. Add/remove teams before scoring begins (2–12 teams recommended); names and colors can change later. Games, rules, and equipment are editable in the score desk. Six games are available: Beer Pong, Bodies Bodies Bodies, Rage Cage, Mario Kart, Shuffleboard & Pool, and King's Cup. Rules are editable drafts; Bodies Bodies Bodies still needs its final round and team-scoring format. Shuffleboard & Pool uses editable round awards, as does Mario Kart. King's Cup is three rounds of low-tally scoring, followed by one ranked event result.
+Six initial teams are editable; teammate counts are intentionally not shown or tracked in the organizer interface. Add/remove teams before scoring begins (2–12 teams recommended); names and colors can change later. Games, rules, and equipment are editable in the score desk. Six games are available: Beer Pong, Bodies, Rage Cage, Mario Kart, Shuff and Pool, and King's Cup. Rules are concise, editable house rules. King’s Cup includes a full card key with action games and no personal questions. Shuff and Pool uses editable round awards, as does Mario Kart. King's Cup is three rounds of low-tally scoring, followed by one ranked event result.
 
 ## Scoring
 
@@ -45,3 +45,5 @@ Supabase free projects may pause when inactive; check the site before the party 
 The two-side event schema extension is in database/changes/two-side-events.sql and is deployed after the original schema. The GitHub repository URL is retained so existing shared links keep working.
 
 The flexible-points extension and King's Cup seed are in supabase/migrations/20261103022647_flexible_event_points.sql, applied after the two-side extension.
+
+Player-facing quick rules and renamed games are tracked in database/changes/quick-game-rules.sql. Apply after the flexible-points migration; this only changes names and rules, preserving results.
