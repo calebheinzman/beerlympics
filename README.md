@@ -14,7 +14,7 @@ The previous email-link login has been removed. Supabase still stores an email a
 
 Choose a game, drag teams or use the up/down buttons, and publish. Corrections replace that event's previous placements, so points are never doubled. Results are written atomically as one complete order. Changes from another device cannot silently overwrite newer results. Use Clear results to remove an event's points.
 
-Six initial teams are editable; teammate counts are intentionally not shown or tracked in the organizer interface. Add/remove teams before scoring begins (2–12 teams recommended); names and colors can change later. Games, rules, and equipment are editable in the score desk. Six games are available: Beer Pong, Bodies, Rage Cage, Mario Kart, Shuff and Pool, and King's Cup. Rules are concise, editable house rules. King’s Cup includes a full card key with action games and no personal questions. Shuff and Pool uses editable round awards, as does Mario Kart. King's Cup is three rounds of low-tally scoring, followed by one ranked event result.
+Six initial teams are editable; teammate counts are intentionally not shown or tracked in the organizer interface. Add/remove teams before scoring begins (2–12 teams recommended); names and colors can change later. Games, rules, and equipment are editable in the score desk. Six games are available: Beer Pong, Bodies, Rage Cage, Beerio Kart, Shuff & Pool, and King's Cup. Rules are concise, editable house rules. King’s Cup includes a full card key with action games and no personal questions. Shuff & Pool uses editable round awards, as does Beerio Kart. King's Cup is three rounds of low-tally scoring, followed by one ranked event result.
 
 ## Scoring
 
@@ -26,7 +26,7 @@ Ranked games use a non-linear scale with a larger first-place bonus and zero for
 
 Two-side events award **3 points to each winning color team and 0 to every losing color team**. A draw/no winner and sitting out award zero. This applies regardless of how many colors are grouped on either side. Assign colors to Side A, Side B, or Not playing, then choose the result. Choose scoring format in Add/Edit game; clear results before changing format.
 
-Custom-points events let the organizer name rounds and enter 0–999 whole leaderboard points per team per round. Suggested awards are 3 for a win and 0 for a loss; tied winners can receive equal awards. All rounds add directly into one event total with no extra placement bonus. Add two rounds for two Mario Kart tournaments or separate Shuffleboard and Pool rounds. Corrections replace saved rounds atomically. Guests can expand round-by-round points, and equal event totals share a place.
+Custom-points events let the organizer name rounds and enter 0–999 whole leaderboard points per team per round. Suggested awards are 3 for a win and 0 for a loss; tied winners can receive equal awards. All rounds add directly into one event total with no extra placement bonus. Add two rounds for two Beerio Kart tournaments or separate Shuffleboard and Pool rounds. Corrections replace saved rounds atomically. Guests can expand round-by-round points, and equal event totals share a place.
 
 Equal overall totals share rank. Ranked-event ties must be resolved before publishing. Existing placements are recalculated with the current scoring scale. Simulations in `analysis/scoring-simulation.py` compare several scales with a fixed random seed and 100,000 trials per scenario; output is `analysis/scoring-simulation.json`. These equal-skill simulations are balance checks, not forecasts. End with a ranked event if comeback potential matters; any positive-point system can eventually be clinched after a sustained lead.
 
@@ -47,3 +47,5 @@ The two-side event schema extension is in database/changes/two-side-events.sql a
 The flexible-points extension and King's Cup seed are in supabase/migrations/20261103022647_flexible_event_points.sql, applied after the two-side extension.
 
 Player-facing quick rules and renamed games are tracked in database/changes/quick-game-rules.sql. Apply after the flexible-points migration; this only changes names and rules, preserving results.
+
+Current party house rules and final display names are in database/changes/party-house-rules.sql, applied after quick-game-rules.sql. Public game cards omit equipment/setup sections.
