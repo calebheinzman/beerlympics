@@ -1,4 +1,4 @@
-# Thirty & Thirsty · Beerlympics
+# Birthday Olympics
 
 Public site: https://calebheinzman.github.io/beerlympics/
 
@@ -18,7 +18,15 @@ Six initial teams are editable; teammate counts are intentionally not shown or t
 
 ## Scoring
 
-1st–12th: **15, 12, 10, 9, 8, 7, 6, 5, 4, 3, 2, 1** points. All games carry equal weight. Equal overall totals share rank. Individual event ties must be resolved before publishing a complete order. Unplayed events award no points.
+Ranked games use a non-linear scale with a larger first-place bonus and zero for last place:
+
+- Four color teams: **7, 4, 2, 0**.
+- Six color teams: **9, 6, 4, 2, 1, 0**.
+- Other team counts use the same larger-first-step pattern; the site displays the applicable table.
+
+Two-side events award **3 points to each winning color team and 0 to every losing color team**. A draw/no winner and sitting out award zero. This applies regardless of how many colors are grouped on either side. Assign colors to Side A, Side B, or Not playing, then choose the result. Choose scoring format in Add/Edit game; clear results before changing format.
+
+Equal overall totals share rank. Ranked-event ties must be resolved before publishing. Existing placements are recalculated with the current scoring scale. Simulations in `analysis/scoring-simulation.py` compare several scales with a fixed random seed and 100,000 trials per scenario; output is `analysis/scoring-simulation.json`. These equal-skill simulations are balance checks, not forecasts. End with a ranked event if comeback potential matters; any positive-point system can eventually be clinched after a sustained lead.
 
 ## Development and hosting
 
@@ -31,3 +39,5 @@ The public Supabase URL and publishable key are in src/config.js. They are inten
 Supabase project: nbfvlycfvxzothkkjxiv. The organizer-setup edge function is disabled (410 with JWT verification enabled) after initial account provisioning. No email/password or setup token is stored in this repository.
 
 Supabase free projects may pause when inactive; check the site before the party and restore the project from Supabase if needed. New projects were quoted at $0/month in the selected free organization. GitHub Pages hosts only the static frontend; Supabase stores all shared data.
+
+The two-side event schema extension is in database/changes/two-side-events.sql and is deployed after the original schema. The GitHub repository URL is retained so existing shared links keep working.

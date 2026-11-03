@@ -1,0 +1,171 @@
+{
+  "4": {
+    "large_winner": {
+      "ranked_points": [
+        12,
+        8,
+        4,
+        0
+      ],
+      "side_win_loss": [
+        6,
+        0
+      ],
+      "trials": 100000,
+      "schedule": "ranked,sides,ranked,sides,ranked; independent equally likely results",
+      "first_game_winner_finishes_tied_or_outright_first_pct": 52.07,
+      "first_game_last_finishes_tied_or_outright_first_pct": 8.74,
+      "average_teams_still_within_remaining_point_swing_after_3_pct": 88.64,
+      "title_clinched_after_3_of_5_pct": 0.0
+    },
+    "even_steps": {
+      "ranked_points": [
+        6,
+        4,
+        2,
+        0
+      ],
+      "side_win_loss": [
+        3,
+        0
+      ],
+      "trials": 100000,
+      "schedule": "ranked,sides,ranked,sides,ranked; independent equally likely results",
+      "first_game_winner_finishes_tied_or_outright_first_pct": 52.07,
+      "first_game_last_finishes_tied_or_outright_first_pct": 8.74,
+      "average_teams_still_within_remaining_point_swing_after_3_pct": 88.64,
+      "title_clinched_after_3_of_5_pct": 0.0
+    },
+    "chosen": {
+      "ranked_points": [
+        7,
+        4,
+        2,
+        0
+      ],
+      "side_win_loss": [
+        3,
+        0
+      ],
+      "trials": 100000,
+      "schedule": "ranked,sides,ranked,sides,ranked; independent equally likely results",
+      "first_game_winner_finishes_tied_or_outright_first_pct": 54.97,
+      "first_game_last_finishes_tied_or_outright_first_pct": 9.49,
+      "average_teams_still_within_remaining_point_swing_after_3_pct": 86.58,
+      "title_clinched_after_3_of_5_pct": 2.02
+    },
+    "chosen_with_two_small_games_last": {
+      "ranked_points": [
+        7,
+        4,
+        2,
+        0
+      ],
+      "side_win_loss": [
+        3,
+        0
+      ],
+      "trials": 100000,
+      "schedule": "ranked,ranked,ranked,sides,sides; independent equally likely results",
+      "first_game_winner_finishes_tied_or_outright_first_pct": 55.07,
+      "first_game_last_finishes_tied_or_outright_first_pct": 9.52,
+      "average_teams_still_within_remaining_point_swing_after_3_pct": 61.22,
+      "title_clinched_after_3_of_5_pct": 21.31
+    }
+  },
+  "6": {
+    "large_winner": {
+      "ranked_points": [
+        15,
+        12,
+        10,
+        9,
+        8,
+        7
+      ],
+      "side_win_loss": [
+        6,
+        0
+      ],
+      "trials": 100000,
+      "schedule": "ranked,sides,ranked,sides,ranked; independent equally likely results",
+      "first_game_winner_finishes_tied_or_outright_first_pct": 42.01,
+      "first_game_last_finishes_tied_or_outright_first_pct": 7.15,
+      "average_teams_still_within_remaining_point_swing_after_3_pct": 88.96,
+      "title_clinched_after_3_of_5_pct": 0.01
+    },
+    "even_steps": {
+      "ranked_points": [
+        10,
+        8,
+        6,
+        4,
+        2,
+        0
+      ],
+      "side_win_loss": [
+        3,
+        0
+      ],
+      "trials": 100000,
+      "schedule": "ranked,sides,ranked,sides,ranked; independent equally likely results",
+      "first_game_winner_finishes_tied_or_outright_first_pct": 43.16,
+      "first_game_last_finishes_tied_or_outright_first_pct": 2.94,
+      "average_teams_still_within_remaining_point_swing_after_3_pct": 85.29,
+      "title_clinched_after_3_of_5_pct": 0.0
+    },
+    "chosen": {
+      "ranked_points": [
+        9,
+        6,
+        4,
+        2,
+        1,
+        0
+      ],
+      "side_win_loss": [
+        3,
+        0
+      ],
+      "trials": 100000,
+      "schedule": "ranked,sides,ranked,sides,ranked; independent equally likely results",
+      "first_game_winner_finishes_tied_or_outright_first_pct": 47.36,
+      "first_game_last_finishes_tied_or_outright_first_pct": 5.07,
+      "average_teams_still_within_remaining_point_swing_after_3_pct": 82.77,
+      "title_clinched_after_3_of_5_pct": 0.56
+    },
+    "chosen_with_two_small_games_last": {
+      "ranked_points": [
+        9,
+        6,
+        4,
+        2,
+        1,
+        0
+      ],
+      "side_win_loss": [
+        3,
+        0
+      ],
+      "trials": 100000,
+      "schedule": "ranked,ranked,ranked,sides,sides; independent equally likely results",
+      "first_game_winner_finishes_tied_or_outright_first_pct": 47.15,
+      "first_game_last_finishes_tied_or_outright_first_pct": 5.04,
+      "average_teams_still_within_remaining_point_swing_after_3_pct": 44.29,
+      "title_clinched_after_3_of_5_pct": 21.88
+    }
+  },
+  "bounds": {
+    "four_teams": {
+      "ranked_max_swing": 7,
+      "two_side_max_swing": 3,
+      "max_recoverable_deficit_with_two_ranked_games_left": 14
+    },
+    "six_teams": {
+      "ranked_max_swing": 9,
+      "two_side_max_swing": 3,
+      "max_recoverable_deficit_with_two_ranked_games_left": 18
+    },
+    "limits": "No fixed positive point system guarantees a comeback late in an event. Repeated wins can clinch a title. Results above assume independent equal-skill outcomes; tied champions count for both percentages."
+  }
+}
