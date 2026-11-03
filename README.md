@@ -14,7 +14,7 @@ The previous email-link login has been removed. Supabase still stores an email a
 
 Choose a game, drag teams or use the up/down buttons, and publish. Corrections replace that event's previous placements, so points are never doubled. Results are written atomically as one complete order. Changes from another device cannot silently overwrite newer results. Use Clear results to remove an event's points.
 
-Six initial teams are editable; teammate counts are intentionally not shown or tracked in the organizer interface. Add/remove teams before scoring begins (2–12 teams recommended); names and colors can change later. Games, rules, and equipment are editable in the score desk. Eight games are available: Beer Pong, Bodies, Rage Cage, Beerio Kart, Shuff & Pool, King's Cup, Prisoner’s Dilemma: The Betrayal Game, and Survivor: Last One Standing. Rules are concise, editable house rules. King’s Cup includes a full card key with action games and no personal questions. Shuff & Pool uses editable round awards, as does Beerio Kart. King's Cup is three rounds of low-tally scoring, followed by one ranked event result.
+Six initial teams are editable; teammate counts are intentionally not shown or tracked in the organizer interface. Add/remove teams before scoring begins (2–12 teams recommended); names and colors can change later. Games, rules, and equipment are editable in the score desk. Eight games are available: Beer Pong, Bodies, Rage Cage, Beerio Kart, Shuff & Pool, King's Cup, Betrayal, and Last One. Rules are concise, editable house rules. King’s Cup includes a full card key with action games and no personal questions. Shuff & Pool uses editable round awards, as does Beerio Kart. King's Cup is three rounds of low-tally scoring, followed by one ranked event result.
 
 ## Scoring
 
@@ -51,3 +51,5 @@ Player-facing quick rules and renamed games are tracked in database/changes/quic
 Current party house rules and final display names are in database/changes/party-house-rules.sql, applied after quick-game-rules.sql. Public game cards omit equipment/setup sections.
 
 The two additional ranked events are seeded by database/changes/add-betrayal-and-survivor.sql. Betrayal game tallies (3/5/1) determine final placement after six rounds; they do not add directly to the birthday leaderboard. Survivor uses one nominee per color and a five-minute cap with a tiebreaker.
+
+Final short display names are applied by database/changes/short-event-names.sql.
