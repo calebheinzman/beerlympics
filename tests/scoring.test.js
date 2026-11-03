@@ -39,3 +39,31 @@ test('side membership rejects overlap, empty sides and unknown teams',async()=>{
  test('four- and six-team scales reward first place disproportionately and finish at zero',async()=>{const {rankedPoints}=await import('../src/scoring.js');assert.deepEqual(rankedPoints(4),[7,4,2,0]);assert.deepEqual(rankedPoints(6),[9,6,4,2,1,0]);for(let n=2;n<=12;n++){const p=rankedPoints(n);assert.equal(p.length,n);assert.equal(p.at(-1),0);assert.ok(p.every((v,i)=>i===0||p[i-1]>v));if(n>=4)assert.ok(p[0]-p[1]>p[1]-p[2]);}});
 
 test('four color teams grouped as two sides still give losers zero',async()=>{const {eventResult}=await import('../src/scoring.js');const e={scoring_mode:'sides',side_a:['red','blue'],side_b:['green','yellow'],winner:'a'};for(const id of e.side_a)assert.equal(eventResult(e,id).points,3);for(const id of e.side_b)assert.equal(eventResult(e,id).points,0);e.winner='b';for(const id of e.side_a)assert.equal(eventResult(e,id).points,0);for(const id of e.side_b)assert.equal(eventResult(e,id).points,3);});
+
+test('custom rounds add once, allow tied winners, and replace corrected awards',async()=>{
+ const {eventResult,hasResult}=await import('../src/scoring.js');
+ const e={scoring_mode:'points',point_rounds:[{name:'Pool',scores:{red:3,blue:3,green:0}},{name:'Shuffleboard',scores:{red:0,blue:0,green:3}}]};
+ assert.ok(hasResult(e));
+ assert.deepEqual(standings(teams,[e]).map(t=>[t.total,t.rank]),[[3,1],[3,1],[3,1]]);
+ assert.equal(eventResult(e,'red').label,'Tied 1st');
+ e.point_rounds[1].scores.red=3;
+ assert.equal(standings(teams,[e])[0].total,6);
+ assert.equal(eventResult(e,'red').label,'1st');
+ assert.equal(standings(teams,[e,{placements:['green','red','blue']}]).find(t=>t.id==='red').total,9);
+ e.point_rounds=[];
+ assert.equal(hasResult(e),false);
+ assert.deepEqual(standings(teams,[e]).map(t=>t.total),[0,0,0]);
+});
+test('two tournaments may have distinct winners and the same total, with zero for losses',async()=>{
+ const {eventResult}=await import('../src/scoring.js');
+ const e={scoring_mode:'points',point_rounds:[{name:'Tournament 1',scores:{red:3,blue:0,green:0}},{name:'Tournament 2',scores:{red:0,blue:3,green:0}}]};
+ assert.equal(eventResult(e,'red').points,3);assert.equal(eventResult(e,'blue').points,3);
+ assert.equal(eventResult(e,'green').points,0);assert.equal(eventResult(e,'green').win,false);
+ assert.equal(eventResult(e,'blue').label,'Tied 1st');
+});
+test('round validation rejects missing teams, fractions, negatives and unnamed rounds',async()=>{
+ const {validatePointRounds}=await import('../src/scoring.js');
+ const valid={name:'Round 1',scores:{red:3,blue:3,green:0}};
+ assert.ok(validatePointRounds([valid],teams));
+ for(const rounds of [[],[{...valid,name:''}],[{...valid,scores:{red:3,blue:0}}],[{...valid,scores:{red:-1,blue:0,green:0}}],[{...valid,scores:{red:0.5,blue:0,green:0}}],[{...valid,scores:{red:NaN,blue:0,green:0}}]])assert.equal(validatePointRounds(rounds,teams),false);
+});
