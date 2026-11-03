@@ -14,7 +14,7 @@ The previous email-link login has been removed. Supabase still stores an email a
 
 Choose a game, drag teams or use the up/down buttons, and publish. Corrections replace that event's previous placements, so points are never doubled. Results are written atomically as one complete order. Changes from another device cannot silently overwrite newer results. Use Clear results to remove an event's points.
 
-Six initial teams are editable; teammate counts are intentionally not shown or tracked in the organizer interface. Add/remove teams before scoring begins (2–12 teams recommended); names and colors can change later. Games, rules, and equipment are editable in the score desk. Eight games are available: Beer Pong, Bodies, Rage Cage, Beerio Kart, Shuff & Pool, King's Cup, Betrayal, and Last One. Rules are concise, editable house rules. King’s Cup includes a full card key with action games and no personal questions. Shuff & Pool uses editable round awards, as does Beerio Kart. King's Cup is three rounds of low-tally scoring, followed by one ranked event result.
+Six initial teams are editable; teammate counts are intentionally not shown or tracked in the organizer interface. Add/remove teams before scoring begins (2–12 teams recommended); names and colors can change later. Games, rules, and equipment are editable in the score desk. Eight games are available: Beer Pong, Bodies, Boom Cup, Beerio Kart, Shuff & Pool, King's Cup, Betrayal, and Last One. Rules are concise, editable house rules. King’s Cup includes a full card key with action games and no personal questions. Shuff & Pool uses editable round awards, as does Beerio Kart. King's Cup is three rounds of low-tally scoring, followed by one ranked event result.
 
 ## Scoring
 
@@ -55,3 +55,5 @@ The two additional ranked events are seeded by database/changes/add-betrayal-and
 Final short display names are applied by database/changes/short-event-names.sql.
 
 Betrayal uses the dedicated `betrayal` scoring format from supabase/migrations/20261103030230_betrayal_round_tallies.sql: save up to six editable 0/2/5 rounds, calculate rank from their sum, then award the normal placement points. Tied totals share rank and award; a zero total earns zero. Round tallies and leaderboard awards appear separately in public results. Idle score desks reload updated drafts when polling; unsaved edits stay protected and saves check updated_at.
+
+Boom Cup’s final display name is applied by database/changes/rename-boom-cup.sql.
