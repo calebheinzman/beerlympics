@@ -9,15 +9,18 @@ export const SIDE_POINTS = {win:3,loss:0,draw:0};
 export const ordinal = n => `${n}${n%100>=11&&n%100<=13?'th':({1:'st',2:'nd',3:'rd'}[n%10]||'th')}`;
 export const isSideEvent = event => event.scoring_mode==='sides';
 export const isPointsEvent = event => event.scoring_mode==='points';
+export const isTallyEvent = event => event.scoring_mode==='betrayal';
+export const isRoundEvent = event => isPointsEvent(event)||isTallyEvent(event);
 export const pointTotals = event => Object.fromEntries(Object.keys(event.point_rounds?.[0]?.scores||{}).map(id=>[id,event.point_rounds.reduce((sum,r)=>sum+r.scores[id],0)]));
-export const hasResult = event => isPointsEvent(event)?!!event.point_rounds?.length:isSideEvent(event)?['a','b','draw'].includes(event.winner):!!event.placements?.length;
+export const hasResult = event => isRoundEvent(event)?!!event.point_rounds?.length:isSideEvent(event)?['a','b','draw'].includes(event.winner):!!event.placements?.length;
 export function eventResult(event,teamId){
  if(!hasResult(event))return null;
- if(isPointsEvent(event)){
+ if(isRoundEvent(event)){
   const totals=pointTotals(event),points=totals[teamId];
   if(points===undefined)return {label:'Did not play',points:0,played:false,win:false};
   const values=Object.values(totals),rank=1+values.filter(p=>p>points).length,tied=values.filter(p=>p===points).length>1;
-  return {label:(tied?'Tied ':'')+ordinal(rank),points,played:true,win:rank===1&&points>0};
+  const award=isTallyEvent(event)?(points===0?0:rankedPoints(values.length)[rank-1]):points;
+  return {label:isTallyEvent(event)&&Math.max(...values)===0?'Draw':(tied?'Tied ':'')+ordinal(rank),points:award,rawPoints:isTallyEvent(event)?points:undefined,played:true,win:rank===1&&points>0};
  }
  if(isSideEvent(event)){
   const side=(event.side_a||[]).includes(teamId)?'a':(event.side_b||[]).includes(teamId)?'b':null;
@@ -46,3 +49,5 @@ export function validatePointRounds(rounds,teams){
   typeof r.name==='string'&&r.name.trim().length>0&&r.name.length<=60&&r.scores&&
   Object.keys(r.scores).length===teams.length&&teams.every(t=>Number.isInteger(r.scores[t.id])&&r.scores[t.id]>=0&&r.scores[t.id]<=999));
 }
+
+export function validateBetrayalRounds(rounds,teams){return validatePointRounds(rounds,teams)&&rounds.length<=6&&rounds.every(r=>Object.values(r.scores).every(p=>[0,2,5].includes(p)));}

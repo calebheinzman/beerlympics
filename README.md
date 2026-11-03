@@ -6,7 +6,7 @@ A phone-friendly birthday event scoreboard hosted on GitHub Pages, with Supabase
 
 ## Using it
 
-Guests open the site without signing in. The homepage shows overall standings and the event breakdown. Standings refresh every 10 seconds while the page is visible. Games includes the scoring guide, the current draft house rules and published event results.
+Guests open the site without signing in. The homepage shows overall standings and the event breakdown. Standings refresh every 5 seconds while the page is visible. Games includes the scoring guide, the current draft house rules and published event results.
 
 The organizer opens **Organizer** and enters their password. No email field, email confirmation, or email link is used for normal sign-in. Initial password creation uses a private, single-use recovery link supplied in the Codex chat; it opens the password form directly. This uses the existing organizer's Supabase Auth identity internally, so database permissions remain tied to the same organizer UUID. Public account creation remains disabled. If a password is forgotten, request a fresh private setup link through this chat; never publish setup tokens in GitHub or the site.
 
@@ -50,6 +50,8 @@ Player-facing quick rules and renamed games are tracked in database/changes/quic
 
 Current party house rules and final display names are in database/changes/party-house-rules.sql, applied after quick-game-rules.sql. Public game cards omit equipment/setup sections.
 
-The two additional ranked events are seeded by database/changes/add-betrayal-and-survivor.sql. Betrayal game tallies (3/5/1) determine final placement after six rounds; they do not add directly to the birthday leaderboard. Survivor uses one nominee per color and a five-minute cap with a tiebreaker.
+The two additional ranked events are seeded by database/changes/add-betrayal-and-survivor.sql. Betrayal game tallies (2 for mutual cooperation, 5/0 for a one-sided betrayal, 0/0 for mutual betrayal) determine final placement after six rounds; they do not add directly to the birthday leaderboard. Survivor uses one nominee per color and a five-minute cap with a tiebreaker.
 
 Final short display names are applied by database/changes/short-event-names.sql.
+
+Betrayal uses the dedicated `betrayal` scoring format from supabase/migrations/20261103030230_betrayal_round_tallies.sql: save up to six editable 0/2/5 rounds, calculate rank from their sum, then award the normal placement points. Tied totals share rank and award; a zero total earns zero. Round tallies and leaderboard awards appear separately in public results. Idle score desks reload updated drafts when polling; unsaved edits stay protected and saves check updated_at.

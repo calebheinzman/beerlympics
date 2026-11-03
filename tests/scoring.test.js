@@ -67,3 +67,31 @@ test('round validation rejects missing teams, fractions, negatives and unnamed r
  assert.ok(validatePointRounds([valid],teams));
  for(const rounds of [[],[{...valid,name:''}],[{...valid,scores:{red:3,blue:0}}],[{...valid,scores:{red:-1,blue:0,green:0}}],[{...valid,scores:{red:0.5,blue:0,green:0}}],[{...valid,scores:{red:NaN,blue:0,green:0}}]])assert.equal(validatePointRounds(rounds,teams),false);
 });
+
+test('Betrayal tallies award placement points instead of raw totals; corrections replace awards',async()=>{
+ const {eventResult,validateBetrayalRounds}=await import('../src/scoring.js');
+ const e={scoring_mode:'betrayal',point_rounds:[{name:'Round 1',scores:{red:5,blue:0,green:2}},{name:'Round 2',scores:{red:0,blue:5,green:2}}]};
+ assert.ok(validateBetrayalRounds(e.point_rounds,teams));
+ assert.equal(eventResult(e,'red').rawPoints,5);
+ assert.equal(eventResult(e,'red').points,6);
+ assert.equal(eventResult(e,'blue').label,'Tied 1st');
+ assert.equal(eventResult(e,'green').points,0);
+ e.point_rounds[1].scores.green=5;
+ assert.equal(eventResult(e,'green').rawPoints,7);
+ assert.equal(eventResult(e,'green').points,6);
+ assert.equal(eventResult(e,'red').points,3);
+});
+test('Betrayal all-betray round earns zero and no win for every color',async()=>{
+ const {eventResult}=await import('../src/scoring.js');
+ const e={scoring_mode:'betrayal',point_rounds:[{name:'Round 1',scores:{red:0,blue:0,green:0}}]};
+ for(const t of teams){assert.equal(eventResult(e,t.id).points,0);assert.equal(eventResult(e,t.id).win,false);assert.equal(eventResult(e,t.id).label,'Draw');}
+});
+test('Betrayal validates payoff values and six-round maximum and keeps maximum award bounded',async()=>{
+ const {validateBetrayalRounds,eventResult}=await import('../src/scoring.js');
+ const rounds=Array.from({length:6},(_,i)=>({name:'Round '+(i+1),scores:{red:5,blue:2,green:0}}));
+ assert.ok(validateBetrayalRounds(rounds,teams));
+ assert.equal(eventResult({scoring_mode:'betrayal',point_rounds:rounds},'red').rawPoints,30);
+ assert.equal(eventResult({scoring_mode:'betrayal',point_rounds:rounds},'red').points,6);
+ assert.equal(validateBetrayalRounds([...rounds,rounds[0]],teams),false);
+ assert.equal(validateBetrayalRounds([{name:'Invalid',scores:{red:3,blue:0,green:0}}],teams),false);
+});
